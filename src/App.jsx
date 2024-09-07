@@ -5,7 +5,7 @@ import TodoInputBox from "./components/TodoInputBox";
 import TodoItem from "./components/TodoItem";
 
 function App() {
-  const [todoList,setTodoList]=useState(JSON.parse(localStorage.getItem("todos")));
+  const [todoList,setTodoList]=useState([]);
   const createTodo=(todoMsg)=>{
     const todo={todoMsg,id:Date.now(),isCompleted:false};
     setTodoList((prev)=>[todo,...prev]);
@@ -19,8 +19,16 @@ function App() {
   const markTodoAsCompleted=(id)=>{
     setTodoList((prev)=>prev.map((todo)=>todo.id==id?{...todo,isCompleted:!todo.isCompleted}:todo))
   }
+  useEffect(()=>{
+    const savedTodos=JSON.parse(localStorage.getItem("todos"))
+    if(savedTodos && savedTodos.length>0){
+      setTodoList(savedTodos)
+    }
+  },[])
   useEffect(()=>{localStorage.setItem("todos",JSON.stringify(todoList));
+    
   },[todoList])
+  
   
   return (
     <div className="h-screen bg-slate-800 flex flex-col items-center">
