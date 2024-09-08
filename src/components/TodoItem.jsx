@@ -37,7 +37,8 @@ function TodoItem({todo}) {
                     editable ? "border-black/10 px-2" : "border-transparent"
                 } ${todo.isCompleted ? "line-through" : ""}`}/>
             {!editable &&<button className={`bg-yellow-100 rounded-lg p-1 ${todo.isCompleted?"bg-slate-50 hover:cursor-not-allowed":""}`} onClick={(e)=>{e.stopPropagation();setEditable(!editable);handleFocus();}} disabled={todo.isCompleted}>✏️</button>}
-            {!todo.isCompleted && editable &&<button className="bg-green-700 rounded-lg p-1" onClick={handleUpdate}>📁</button>}
+            {!todo.isCompleted && editable &&<button className="bg-blue-400 rounded-lg p-1" onClick={()=>{setTodoContent(todo.todoMsg);handleFocus();}}>↩</button>}
+            {!todo.isCompleted && editable &&<button className="bg-green-950 rounded-lg p-1" onClick={handleUpdate}>📁</button>}
             <button className="bg-red-300 rounded-lg p-1" onClick={handleDelete}>❌</button>
         </div>
     )
